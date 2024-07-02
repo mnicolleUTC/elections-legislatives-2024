@@ -1,9 +1,5 @@
 # Election Results Analysis
 
-## Description
-
-This repository contains a Jupyter Notebook for analyzing the first-round results of the 2024 legislative elections in France. The analysis includes data processing, visualization, and exclusion of constituencies without a second round of voting.
-
 ## Data Sources
 
 The data used in this analysis is sourced from the following locations:
@@ -16,27 +12,54 @@ The data used in this analysis is sourced from the following locations:
 1. **Loading Data**: The notebook begins by importing necessary packages such as `pandas`, `geopandas`, and `matplotlib`. The election results data is loaded from a CSV file using `pandas`.
 
 2. **Data Cleaning and Preparation**:
-   - The dataset is filtered to exclude constituencies where the election was decided in the first round.
-   - Unique candidate codes are extracted for further analysis.
+   - The dataset is filtered to exclude constituencies where the election was decided in the first round. This is achieved by identifying constituencies with candidates who were elected in the first round and excluding them from further analysis.
+   - This table explains labels from CodNuaCand column :
 
-3. **Analysis**:
-   - The results are processed to understand the distribution of votes among different political parties.
-   - Additional statistical analyses and visualizations are performed to identify trends and patterns.
+    | Label orientation politique | Parti politique                     |
+    |-----------------------------|-------------------------------------|
+    | EXG                         | Extrême gauche                      |
+    | RN                          | Rassemblement National              |
+    | LR                          | Les Républicains                    |
+    | UG                          | Union de la Gauche                  |
+    | DSV                         | Divers                              |
+    | ENS                         | Ensemble                            |
+    | EXD                         | Reconquête                          |
+    | DIV                         | Divers                              |
+    | ECO                         | Divers écologistes                  |
+    | DVD                         | Divers droite                       |
+    | REC                         | Reconquête                          |
+    | UXD                         | RN + Républicain                    |
+    | DVG                         | Divers gauche                       |
+    | UDI                         | Droite écolo                        |
+    | REG                         | Vote nul candidat avec 0%           |
+    | DVC                         | Vote minoritaire pas RN             |
+    | HOR                         | Horizon - ensemble                  |
+    | COM                         | Autres pas RN                       |
+    | VEC                         | Autres gauches                      |
+    | FI                          | Associé front populaire             |
+    | SOC                         | DOM TOM                             |
+    | RDG                         | Autres gauches                      |
 
-4. **Visualization**: 
+   Each of those labels is classified as follows:
+   - **RN**: 'RN', 'EXD', 'REC', 'UXD'
+   - **Not RN**: All other labels
+   - Constituencies are filtered to identify those where the RN party is participating in the second round of voting
+
+3. **Visualization**: 
    - The notebook employs `matplotlib` to visualize the geographical distribution of election results.
-   - Maps and charts are generated to provide insights into the election data.
-
-## Results
-
-The analysis provides several insights into the 2024 legislative election results, including:
-- Distribution of votes by political party.
-- Identification of constituencies moving to the second round.
-- Geographical representation of voting patterns.
+   - Maps are generated where constituencies are color-coded to reflect the Difference in votes between the total of "L'arc républicain" and the RN, expressed as a percentage of the number of registered voters.
+   - Constituencies where a candidate was elected in the first round are highlighted in black.
+   - The map is divided into regions based on the geographical data from Geographical boundaries of constituencies source.
 
 ## Usage
 
 To run the notebook, ensure you have the required packages installed. You can install them using `pip`:
 
 ```bash
-pip install pandas geopandas matplotlib
+pip install -r requirements.txt
+```
+Then, open the notebook in Jupyter and run the cells to reproduce the analysis.
+
+## License
+This project is licensed under the MIT License.
+
